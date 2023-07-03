@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="group_access_draft" model="res.groups">
+        <field name="name">Access for Reset to Draft: Invoice</field>
+    </record>
+
+    <record id="group_access_draft_bills" model="res.groups">
+        <field name="name">Access for Reset to Draft: Bills</field>
+    </record>
+
+    <record id="group_access_draft_je" model="res.groups">
+        <field name="name">Access for Reset to Draft: Journal Entery</field>
+    </record>
+
+    <record id="group_access_move_invoice_post" model="res.groups">
+        <field name="name">Access for Post: Invoice</field>
+    </record>
+
+    <record id="group_access_move_bill_post" model="res.groups">
+        <field name="name">Access for Post: Bills</field>
+    </record>
+
+    <record id="group_access_move_je_post" model="res.groups">
+        <field name="name">Access for Post: Journal Entery</field>
+    </record>
+
+    <record model="ir.ui.view" id="view_account_invoice_form_gcs">
+        <field name="name">tax.invoice.form.inherit.gcs</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="sale.account_invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_shipping_id']" position="attributes">
+                <attribute name="options">{'no_open': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='team_id']" position="attributes">
+                <attribute name="options">{'no_open': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='campaign_id']" position="attributes">
+                <attribute name="options">{'no_open': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='medium_id']" position="attributes">
+                <attribute name="options">{'no_open': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='source_id']" position="attributes">
+                <attribute name="options">{'no_open': True}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_tax_invoice_form">
+        <field name="name">tax.invoice.form.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='journal_id']" position="attributes">
+                <attribute name="options">{'no_open': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_payment_term_id']" position="attributes">
+                <attribute name="options">{'no_open': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='currency_id']" position="attributes">
+                <attribute name="options">{'no_open': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_user_id']" position="attributes">
+                <attribute name="options">{'no_open': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_incoterm_id']" position="attributes">
+                <attribute name="options">{'no_open': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='fiscal_position_id']" position="attributes">
+                <attribute name="options">{'no_open': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_cash_rounding_id']" position="attributes">
+                <attribute name="options">{'no_open': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/form/sheet/group/field[@name='product_uom_id']" position="attributes">
+                <attribute name="options">{'no_open': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/form/sheet/group/field[@name='account_id']" position="attributes">
+                <attribute name="options">{'no_open': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/form/sheet/group/field[@name='product_id']" position="attributes">
+                <attribute name="options">{'no_open': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/form/group/field[@name='account_id']" position="attributes">
+                <attribute name="options">{'no_open': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/form/group/field[@name='partner_id']" position="attributes">
+                <attribute name="options">{'no_open': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/form/group/field[@name='currency_id']" position="attributes">
+                <attribute name="options">{'no_open': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='account_id']" position="after">
+                <field name="line_type" optional="hide" />
+            </xpath>
+            <xpath expr="//field[@name='ref']" position="after">
+                <field name="subcontract_invoice" attrs="{'invisible': [('move_type', 'not in', ['out_invoice', 'out_refund'])]}"/>
+                <field name="contrac_no" attrs="{'invisible': [('subcontract_invoice', '=', False)]}"/>
+                <field name="subject_name" attrs="{'invisible': [('subcontract_invoice', '=', False)]}"/>
+                <field name="po_number" attrs="{'invisible': [('subcontract_invoice', '=', False)]}"/>
+                <field name="project_name" attrs="{'invisible': [('subcontract_invoice', '=', False)]}"/>
+                <field name="vendor_num" attrs="{'invisible': [('subcontract_invoice', '=', False)]}"/>
+                <field name="advance_payment" attrs="{'invisible': [('subcontract_invoice', '=', False)], 'readonly':[('state','=','posted')]}"/>
+                <field name="back_charge"  attrs="{'invisible': [('subcontract_invoice', '=', False)], 'readonly':[('state','=','posted')]}"/>
+                <field name="retainsion_amount" attrs="{'invisible': [('subcontract_invoice', '=', False)], 'readonly':[('state','=','posted')]}"/>
+                <field name="perform_band" attrs="{'invisible': [('subcontract_invoice', '=', False)], 'readonly':[('state','=','posted')]}"/>
+                <field name="saudization_deduction"  attrs="{'invisible': [('subcontract_invoice', '=', False)], 'readonly':[('state','=','posted')]}"/>
+                <button name="update_lines" string="Updates" class="oe_highlight" type="object"/>
+            </xpath>
+            <xpath expr="//field[@name='partner_bank_id']" position="after">
+                <field name="date_due"/>
+                <field name="check_move_post" invisible="0"/>
+                <field name="invoice_date_supply"/>
+                <field name="report_type"/>
+                <field name="amount_word_arabic"/>
+                <field name="check_move_set_to_draft" invisible="1"/>
+            </xpath>
+
+           <xpath expr="//button[@name='action_post']" position="attributes">
+                <attribute name="attrs">{'invisible': [('check_move_post', '=', False)]}</attribute>
+           </xpath> 
+
+           <!-- <xpath expr="//field[@name='ref']" position="attributes">
+                <attribute name="attrs">{'invisible': [('subcontract_invoice', '=', False)]}</attribute>
+           </xpath> -->
+
+           <xpath expr="//field[@name='line_ids']" position="attributes">
+                <attribute name="attrs">{'readonly': [('move_type', 'in', ['out_invoice', 'in_invoice', 'out_refund', 'in_refund'])]}</attribute>
+                <attribute name="force_save">1</attribute>
+           </xpath>
+
+            <button name="button_draft" position="replace">
+                <button name="button_draft" string="Reset to Draft" type="object" attrs="{'invisible' : [('check_move_set_to_draft', '=', False)]}"/>
+
+<!--                 <button name="button_draft" string="Reset to Draft" type="object" groups="gcs_invoice_vat.group_access_draft" attrs="{'invisible' : ['|', '|', ('type', '=', 'entry'), ('restrict_mode_hash_table', '=', True), ('state', 'not in', ('posted', 'cancel'))]}"/>
+                <button name="button_draft" string="Reset to Draft" type="object" groups="gcs_invoice_vat.group_access_draft_je" attrs="{'invisible' : ['|', '|', ('type', '!=', 'entry'), ('restrict_mode_hash_table', '=', True), ('state', 'not in', ('posted', 'cancel'))]}"/> -->
+            </button>
+            <xpath expr="//group[hasclass('oe_subtotal_footer')]" position="replace">
+                <group class="oe_subtotal_footer" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]}">
+                    <field name="total_with_vat"/>
+                    <field name="advance_payment_amount" attrs="{'invisible': [('subcontract_invoice', '=', False)]}"/>
+                    <field name="back_charge_form" attrs="{'invisible': [('subcontract_invoice', '=', False)]}"/>
+                    <field name="taxable_total_amount"/>
+                    <field name="vat_15"/>
+                    <field name="amount_include_vat"/>
+                    <field name="retainsion_amount_form" attrs="{'invisible': [('subcontract_invoice', '=', False)]}"/>
+                    <field name="perform_band_form" attrs="{'invisible': [('subcontract_invoice', '=', False)]}"/>
+                    <field name="saudization_deduction_form" attrs="{'invisible': [('subcontract_invoice', '=', False)]}"/>
+                    <field name="net_total_calc"/>
+                    <field name="amount_untaxed" invisible="1"/>
+                    <field name="tax_totals" invisible="1" widget="account-tax-totals-field" nolabel="1" colspan="2"/>
+                    <field name="amount_total"  invisible="1" class="oe_subtotal_footer_separator"/>
+                    <field name="invoice_payments_widget"  invisible="1" colspan="2" nolabel="1" widget="payment"/>
+                    <field name="amount_residual" invisible="1" class="oe_subtotal_footer_separator" attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_company_form_etir">
+        <field name="name">tax.invoice.res.company.inherit</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='currency_id']" position="after">
+                <field name="building_no"/>
+                <field name="additional_no"/>
+                <field name="other_seller_id"/>
+            </xpath>
+            <xpath expr="//field[@name='favicon']" position="after">
+                <field name="report_header_logo" widget="image" class="float-left oe_avatar" groups="base.group_no_one"/>
+                <field name="report_footer_logo" widget="image" class="float-left oe_avatar" groups="base.group_no_one"/>
+            </xpath>
+            <xpath expr="//group[@name='social_media']" position="before">
+                <group>
+                    <field name="arabic_name"/>
+                    <label for="arabic_street" string="Arabic Address"/>
+                    <div class="o_address_format">
+                        <field name="arabic_street" placeholder="Arabic Street..." class="o_address_street"/>
+                        <field name="arabic_street2" placeholder="Arabic Street 2..." class="o_address_street"/>
+                        <field name="arabic_city" placeholder="Arabic City" class="o_address_city"/>
+                        <field name="arabic_state" class="o_address_state" placeholder="Arabic State" options="{&quot;no_open&quot;: True}"/>
+                        <field name="arabic_zip" placeholder="Arabic ZIP" class="o_address_zip"/>
+                        <field name="arabic_country" placeholder="Arabic Country" class="o_address_country" options="{&quot;no_open&quot;: True}"/>
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_partner_form_etir">
+        <field name="name">tax.invoice.res.partner.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+          <xpath expr="//field[@name='vat']" position="before">
+                <field name="arabic_name" required="1"/>
+                <field name="cr_number" required="1"/> 
+            </xpath>
+
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="building_no"/>
+                <field name="additional_no"/>
+                <field name="other_seller_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- TODO: Need to check: Remove the fleet_operations dependency -->
+<!--     <record model='ir.ui.view' id='view_partner_form_extendedvat_gcs'>
+        <field name="name">view.partner.form.extended</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="fleet_operations.view_partner_form_extended" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='arabic_name']" position="replace">
+                <field name="arabic_name" attrs="{'required': [('is_driver', '=', False)], 'invisible':[('is_driver', '=', True)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='cr_number']" position="replace">
+                <field name="cr_number" attrs="{'required': [('is_driver', '=', False)], 'invisible':[('is_driver', '=', True)]}"/>
+            </xpath>
+        </field>
+    </record> -->
+
+  <!-- <record model="ir.ui.view" id="vendor_form_inherit_account">
+        <field name="name">account.res.partner.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="subcontract_agreement.vendor_form_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='performance_bond_account']" position="after">
+                <field name="back_charge_account_id" attrs="{'invisible': [('is_subcontractor', '=', False)]}"/>
+                <field name="sau_deduction_account_id" attrs="{'invisible': [('is_subcontractor', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>-->
+
+
+</odoo>

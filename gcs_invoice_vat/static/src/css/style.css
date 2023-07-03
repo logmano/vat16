@@ -1,0 +1,25 @@
+.font{
+font-family:'traditional_arabic';;font-weight:100;font-size: 12px;
+}
+
+@font-face {
+	font-family: 'DroidArabicKufiBold';
+	src: url('/gcs_invoice_vat/static/src/fonts/DroidKufi-Bold.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
+	font-size: 12px;
+
+	  }
+
+@font-face {
+	font-family: 'DroidArabicKufiRegular';
+	src: url('/gcs_invoice_vat/static/src/fonts/DroidKufi-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-size: 12px;
+}
+
+.arabic{
+	font-family:DroidArabicKufiRegular !important;
+	font-size: 12px;
+}

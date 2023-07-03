@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_account_move_line_report_wizard_form_view_in" model="ir.ui.view">
+        <field name="name">account.move.line.report.wizard.form.view</field>
+        <field name="model">account.move.line.in.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Vat In Report">
+                <group col="4">
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </group>
+                <footer>
+                    <button name="generate_excel_report" string="Print Excel" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_report_account_move_line_report_wizard_in" model="ir.actions.act_window">
+        <field name="name">Vat In Report</field>
+        <field name="res_model">account.move.line.in.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="view_account_move_line_report_wizard_download_form_in" model="ir.ui.view">
+        <field name="name">download.accountml.wizard.report.form</field>
+        <field name="model">download.accountml.wizard.report.in</field>
+        <field name="arch" type="xml">
+            <form string="Journal Item Report Details">
+                <field name="file_name" invisible="1"/>
+                <field name="excel_file" filename='file_name' readonly="1"/>
+                <footer>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="account_move_line_report_wizard_download_in">
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.move.line.in.report.wizard</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="view_id" ref="view_account_move_line_report_wizard_download_form_in"/>
+    </record>
+
+   <menuitem id="menu_report_account_move_line_report_wizard_in" 
+    name="Vat In Report" action="action_report_account_move_line_report_wizard_in" parent="account.menu_finance_reports" sequence="4"/>
+
+</odoo>
