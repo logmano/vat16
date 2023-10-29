@@ -1,0 +1,751 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_invoice_document_custom_id">
+        <t t-call="web.basic_layout">
+            <t t-set="color" t-value="res_company.secondary_color" />
+            <t t-set="table_border_color" t-value="res_company.primary_color" />
+
+
+            <t t-foreach="docs" t-as="o">
+                <div class="article" t-attf-data-oe-model="account.move"
+                    t-attf-data-oe-id="{{o.id}}">
+                </div>
+                <div class="page">
+                    <style>
+                        @font-face {
+                        font-family: "CustomFont";
+                        src: url('/external_layout/static/src/font/majalla.ttf') format('truetype');
+                        }
+                        @font-face {
+                        font-family: "AdobeDevanagari";
+                        src: url('/external_layout/static/src/font/AdobeDevanagari-Regular.ttf')
+                        format('truetype');
+                        }
+                        .row_bl_gr {
+                        margin-right: 5px;
+                        }
+                        .margin {
+                        margin-top: 5px;
+                        }
+                        .margin_h {
+                        margin-top: 5px;
+                        }
+                        .padding {
+                        padding-left: 10px;
+                        }
+                        .font-style {
+                        font-style: italic;
+                        }
+
+                    </style>
+
+                    <div class="header" id="header">
+                        <div class="row">
+                            <div class="col-4 text-center">
+                                <span>
+                                    <t t-set="company" t-value="res_company" />
+                                    <img t-if="company.logo"
+                                        t-att-src="image_data_uri(company.logo)"
+                                        style="max-width:250px;max-height:150px;" alt="Logo" />
+                                </span>
+                            </div>
+                            <div class="text-left col-8">
+                                <div class="row">
+                                    <table width="95%" style="margin-left: 10px">
+                                        <tr style="border-left: 15px solid"
+                                            t-attf-style="border-left: 15px solid {{table_border_color}}">
+
+                                            <td>
+
+                                                <span style="padding-left: 10px;">
+                                                    <i class="fa fa-phone" />
+                                                    <span class="o_force_ltr"
+                                                        style="font-family: 'CustomFont';"
+                                                        t-field="res_company.phone" />
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr style="border-left: 15px solid"
+                                            t-attf-style="border-left: 15px solid {{table_border_color}}">
+                                            <td>
+                                                <span style="padding-left: 10px;"
+                                                    class="fa fa-envelope" role="img"
+                                                    aria-label="Email" title="Email" />
+                                                <span
+                                                    style="padding-left: 10px; font-family: 'CustomFont';"
+                                                    itemprop="email"
+                                                    t-field="res_company.email" />
+                                            </td>
+                                        </tr>
+                                        <tr style="border-left: 15px solid"
+                                            t-attf-style="border-left: 15px solid {{table_border_color}}">
+                                            <td>
+                                                <i style="padding-left: 10px;"
+                                                    class="fa fa fa-globe" />
+                                                <span
+                                                    style="padding-left: 10px; font-family: 'CustomFont';"
+                                                    t-field="res_company.website" />
+                                            </td>
+                                        </tr>
+                                        <tr style="border-left: 15px solid"
+                                            t-attf-style="border-left: 15px solid {{table_border_color}}">
+                                            <td>
+                                                <i style="padding-left: 10px;" class="fa fa-pencil" />
+                                                <span
+                                                    style="padding-left: 10px; font-family: 'CustomFont';"
+                                                    t-field="res_company.company_registry" />
+                                            </td>
+                                        </tr>
+                                        <tr style="border-left: 15px solid"
+                                            t-attf-style="border-left: 15px solid {{table_border_color}}">
+                                            <td>
+                                                <i style="padding-left: 10px;"
+                                                    class="fa fa-map-marker" />
+                                                <span
+                                                    style="padding-left: 2px; font-family: 'CustomFont';"
+                                                    t-field="res_company.street" />
+                                                <span
+                                                    style="font-family: 'CustomFont';"
+                                                    t-field="res_company.city" />
+
+
+                                            </td>
+
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="row  padding">
+                                    <div class="col-12" style="border-top: 2px solid black">
+                                        <table width="100%">
+                                            <tr>
+                                                <td>
+                                                    <strong style="font-family: 'CustomFont';">VAT
+                                                        ID : </strong>
+                                                    <span
+                                                        style="padding-left: 10px0; font-family: 'CustomFont';"
+                                                        t-field="res_company.vat" />
+
+
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div>
+                        <div class="col-12 text-center">
+                            <center>
+
+                            </center>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row margin_h">
+                        <div class="col-4 text-center ">
+                            <div class="row text-left padding">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            to.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h4>
+                                                <span class="font-style"
+                                                    style="padding-left: 10px; font-family: 'CustomFont';"
+                                                    t-field="o.partner_id" />
+                                            </h4>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+
+                                    </tr>
+                                    <tr>
+                                        <td t-if="o.partner_id.phone">
+                                            <p style="font-family: 'CustomFont';">Phone. <span
+                                                    style="padding-left: 10px; font-family: 'CustomFont';"
+                                                    t-field="o.partner_id.phone" />
+                                            </p>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td t-if="o.partner_id.email">
+                                            <p style="font-family: 'CustomFont';">Website. <span
+                                                    style="font-family: 'CustomFont';"
+                                                    t-field="o.partner_id.email" />
+                                            </p>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="row text-left padding margin" style="margin-top: 2px; ">
+                                <table style="margin-top: 4px;">
+                                    <tr
+                                        t-if="o.partner_id.street or o.partner_id.state_id or o.partner_id.country_id ">
+                                        <td>
+                                            <p style="font-family: 'CustomFont';">Address. <span
+                                                    t-field="o.partner_id.street"
+                                                    style="font-family: 'CustomFont';" />
+                                                    <span
+                                                    t-field="o.partner_id.state_id.code"
+                                                    style="font-family: 'CustomFont';" />
+                                                <span
+                                                    t-field="o.partner_id.country_id.name"
+                                                    style="font-family: 'CustomFont';" />
+                                            </p>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+
+
+                                    </tr>
+                                    <tr t-if="o.partner_id.vat">
+                                        <td>
+                                            <h3>
+                                                <span style="font-family: 'CustomFont';">vat id. <span
+                                                        t-field="o.partner_id.vat"
+                                                        style="font-family: 'CustomFont';" />
+
+                                                </span>
+                                            </h3>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <table width="100%" class="text-left">
+                                <tr>
+                                    <td width="50%"
+                                        style="background-color: #d5d4d9;color: #d5d4d9;border-right: 3px solid white;">
+                                        <h4>فاتورة ضريبية</h4>
+                                    </td>
+
+                                    <td width="50%"
+                                        t-attf-style="background-color:{{color}};color: #ffffff;">
+                                        <h4>
+                                            <span style="font-family: 'CustomFont';"
+                                                t-if="o.move_type=='out_invoice'">
+                                                <b> TAX INVOICE فاتورة ضريبية </b>
+                                            </span>
+                                            <span class="text-center font-style"
+                                                style="font-family: 'CustomFont';"
+                                                t-if="o.move_type=='in_invoice'">
+                                                <b> PURCHASE INVOICE فاتورة مشتريات </b>
+                                            </span>
+                                            <span class="text-center font-style"
+                                                style="font-family: 'CustomFont';"
+                                                t-if="o.move_type=='out_refund'">- <b> CREDIT NOTE
+                                                إشعار إضافة </b>
+                                            </span>
+                                            <span class="text-center font-style"
+                                                style="font-family: 'CustomFont';"
+                                                t-if="o.move_type=='in_refund'">- <b> DEBIT NOTE
+                                                إشعار خصم </b>
+                                            </span>
+                                        </h4>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td width="50%" style="border-right: 3px solid white;">
+                                        <strong style="font-family: 'CustomFont';">
+                                            <h4> INVOICE DATE تاريخ الفاتورة </h4>
+                                        </strong>
+                                    </td>
+
+                                    <td width="50%">
+                                        <strong style="font-family: 'CustomFont';">
+                                            <h4> INVOICE NO رقم الفاتورة </h4>
+                                        </strong>
+
+                                    </td>
+                                </tr>
+
+                                <tr style="border-top: 1px solid black;">
+                                    <td width="50%"
+                                        style="border-right: 3px solid white; font-weight: bold;">
+                                        <h4>
+                                            <span
+                                                style="font-family: 'CustomFont'; font-weight: bold;"
+                                                t-field="o.invoice_date" />
+                                        </h4>
+                                    </td>
+                                    <td width="50%">
+                                        <h4>
+                                            <span
+                                                style="font-family: 'CustomFont'; font-weight: bold;"
+                                                t-field="o.name" />
+                                        </h4>
+                                    </td>
+                                </tr>
+
+                                <tr style="height: 20px;">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td width="50%" style="border-right: 3px solid white;">
+                                        <strong style="font-family: 'CustomFont';">
+
+                                            <h4> DATE ISSUED تاريخ الاصدار </h4>
+                                        </strong>
+                                    </td>
+                                    <td width="50%">
+                                        <strong style="font-family: 'CustomFont';">
+                                            <h4> TOTAL DUE الاجمالي</h4>
+                                        </strong>
+
+                                    </td>
+                                </tr>
+
+                                <tr style="border-top: 2px solid #d5d4d9;">
+                                    <td width="50%" style="border-right: 3px solid white;">
+                                        <h4>
+                                            <span
+                                                style="font-family: 'AdobeDevanagari'; font-weight: bold;"
+                                                t-field="o.invoice_date" />
+                                        </h4>
+                                    </td>
+                                    <td width="50%">
+                                        <h4>
+                                            <span
+                                                style="font-family: 'AdobeDevanagari'; font-weight: bold;"
+                                                t-field="o.amount_residual" />
+                                        </h4>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row margin_h">
+                        <div class="col-12 text-right">
+                            <strong style="font-family: 'CustomFont';"> المرجع Reference : <span
+                                    style="padding-left: 10px; font-family: 'CustomFont';"
+                                    t-field="o.ref" />
+                            </strong>
+
+                        </div>
+                    </div>
+
+                    <div class="row margin">
+
+
+                        <table width="100%" cellpadding="0" class="table text-left">
+                            <tr
+                                style="border-top: 1px solid black;">
+                                <th name="th_product" class="text-left">
+                                    <h5>
+                                        <span style="font-family: 'CustomFont'; font-weight: bold;">
+                                            Product </span>
+                                    </h5>
+                                    <h5>
+                                        <span style="font-family: 'CustomFont'; font-weight: bold;">
+                                            المنتج </span>
+                                    </h5>
+
+                                </th>
+                                <th name="th_description" class="text-left">
+                                    <h5>
+                                        <span style="font-family: 'CustomFont'; font-weight: bold;">
+                                            Description </span>
+                                    </h5>
+                                    <h5>
+                                        <span style="font-family: 'CustomFont'; font-weight: bold;">
+                                            البيان </span>
+                                    </h5>
+
+                                </th>
+
+                                <th name="th_quantity" class="text-center">
+                                    <h5>
+                                        <span style="font-family: 'CustomFont'; font-weight: bold;">
+                                            Quantity</span>
+                                    </h5>
+                                    <h5>
+                                        <span style="font-family: 'CustomFont'; font-weight: bold;">
+                                            الكمية</span>
+                                    </h5>
+
+                                </th>
+                                <th name="th_priceunit" class="text-center">
+                                    <h5>
+                                        <span style="font-family: 'CustomFont'; font-weight: bold;">Unit
+                                            Price</span>
+                                    </h5>
+                                    <h5>
+                                        <span style="font-family: 'CustomFont'; font-weight: bold;">سعر
+                                            الوحدة</span>
+                                    </h5>
+
+                                </th>
+                                <th name="th_price_unit" t-if="display_discount"
+                                    class="text-center">
+                                    <h5>
+                                        <span style="font-family: 'CustomFont'; font-weight: bold;">
+                                            Disc.%</span>
+                                    </h5>
+                                    <h5>
+                                        <span style="font-family: 'CustomFont'; font-weight: bold;">
+                                            الخصم.%</span>
+                                    </h5>
+
+                                </th>
+                                <th name="th_taxes"
+                                    class="text-centr">
+                                    <h5>
+                                        <span style="font-family: 'CustomFont'; font-weight: bold;">
+                                            Taxes</span>
+                                    </h5>
+                                    <h5>
+                                        <span style="font-family: 'CustomFont'; font-weight: bold;">
+                                            الضريبة</span>
+                                    </h5>
+
+                                </th>
+                                <th name="th_subtotal" class="text-center">
+                                    <h5>
+                                        <span style="font-family: 'CustomFont'; font-weight: bold;"
+                                            groups="account.group_show_line_subtotals_tax_excluded">
+                                            Amount
+                                        </span>
+                                    </h5>
+                                    <h5>
+                                        <span style="font-family: 'CustomFont'; font-weight: bold;"
+                                            groups="account.group_show_line_subtotals_tax_excluded">
+                                            المبلغ
+                                        </span>
+                                    </h5>
+
+                                    <h5>
+                                        <span style="font-family: 'CustomFont'; font-weight: bold;"
+                                            groups="account.group_show_line_subtotals_tax_included">Total
+                                            Price
+                                        </span>
+                                    </h5>
+                                    <h5>
+                                        <span style="font-family: 'CustomFont'; font-weight: bold;"
+                                            groups="account.group_show_line_subtotals_tax_included">
+                                            الاجمالي
+                                        </span>
+                                    </h5>
+
+                                </th>
+                            </tr>
+
+
+                            <!-- <tr style="max-height: 25px;border-bottom: 0px;">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr> -->
+
+
+                            <t style="font-family: 'AdobeDevanagari';" t-set="current_subtotal"
+                                t-value="0" />
+                            <t t-set="lines"
+                                t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)" />
+
+                            <t t-foreach="lines" t-as="line">
+                                <t t-set="current_subtotal" style="font-family: 'AdobeDevanagari';"
+                                    t-value="current_subtotal + line.price_subtotal"
+                                    groups="account.group_show_line_subtotals_tax_excluded" />
+                                <t t-set="current_subtotal" style="font-family: 'AdobeDevanagari';"
+                                    t-value="current_subtotal + line.price_total"
+                                    groups="account.group_show_line_subtotals_tax_included" />
+
+                                <tr style="border-bottom: 2px solid black;">
+                                    <t t-if="not line.display_type"
+                                        name="account_invoice_line_accountable">
+                                        <td style="border-right: 2px solid black;"
+                                            name="account_invoice_line_product">
+                                            <h4>
+                                                <span style="font-family: 'CustomFont';"
+                                                    t-field="line.product_id.name"
+                                                    t-options="{'widget': 'text'}" />
+                                            </h4>
+                                        </td>
+                                        <td style="border-right: 2px solid black;"
+                                            name="account_invoice_line_name">
+                                            <h4>
+                                                <span style="font-family: 'CustomFont';"
+                                                    t-field="line.name"
+                                                    t-options="{'widget': 'text'}" />
+                                            </h4>
+                                        </td>
+                                        <td class="text-center"
+                                            style="border-right: 1px solid #d5d4d9;">
+                                            <span style="font-family: 'AdobeDevanagari';"
+                                                t-field="line.quantity" />
+                                            <span style="font-family: 'AdobeDevanagari';"
+                                                t-field="line.product_uom_id" groups="uom.group_uom" />
+                                        </td>
+                                        <td style="border-right: 1px solid #d5d4d9;"
+                                            class="text-center">
+                                            <span style="font-family: 'AdobeDevanagari';"
+                                                class="text-nowrap" t-field="line.price_unit" />
+                                        </td>
+                                        <td t-if="display_discount" class="text-center"
+                                            style="border-right: 1px solid #d5d4d9;">
+                                            <span style="font-family: 'AdobeDevanagari';"
+                                                class="text-nowrap" t-field="line.discount" />
+                                        </td>
+
+
+                                        <td style="border-right: 1px solid #d5d4d9;"
+                                            class="text-center">
+                                            <t t-set="tval"
+                                                t-value="', '.join(map(lambda x: str((x.amount)/100), line.tax_ids)) or 0" />
+
+                                            <t t-set="total"
+                                                t-value="round(line.price_unit * line.quantity * (float(tval)),2)" />
+
+                                            <span style="font-family: 'AdobeDevanagari';"
+                                                t-esc="total" />
+                                        </td>
+                                        <td class="text-center o_price_total">
+                                            <span style="font-family: 'AdobeDevanagari';"
+                                                class="text-nowrap" t-field="line.price_subtotal"
+                                                groups="account.group_show_line_subtotals_tax_excluded" />
+                                            <span style="font-family: 'AdobeDevanagari';"
+                                                class="text-nowrap" t-field="line.price_total"
+                                                groups="account.group_show_line_subtotals_tax_included" />
+                                        </td>
+                                    </t>
+                                    <t t-if="line.display_type == 'line_section'">
+                                        <td colspan="99">
+                                            <span t-field="line.name" t-options="{'widget': 'text'}" />
+                                        </td>
+                                        <t t-set="current_section" t-value="line" />
+                                        <t t-set="current_subtotal" t-value="0" />
+                                    </t>
+                                    <t t-if="line.display_type == 'line_note'">
+                                        <td colspan="99">
+                                            <span t-field="line.name" t-options="{'widget': 'text'}" />
+                                        </td>
+                                    </t>
+                                </tr>
+
+                                <t
+                                    t-if="current_section and (line_last or lines[line_index+1].display_type == 'line_section')">
+                                    <tr class="is-subtotal text-right">
+                                        <td colspan="99">
+                                            <strong style="font-family: 'CustomFont';" class="mr16">Subtotal
+                                                الاجمالي الخاضع للضريبة</strong>
+                                            <span
+                                                t-esc="current_subtotal"
+                                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                                            />
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </table>
+
+
+                    </div>
+                    <div class="row margin">
+                        <div class="col-5 text-left">
+
+                            <div class="row padding">
+                                <table width="100%">
+                                    <tr>
+                                        <td>
+                                            <h3>
+                                                <strong style="font-family: 'CustomFont';">Term and
+                                                    Condition :</strong>
+                                            </h3>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+
+                            <div class="row padding">
+                                <p style="font-family: 'CustomFont';"
+                                    t-if="o.invoice_payment_term_id" name="payment_term">
+                                    <span style="font-family: 'CustomFont';"
+                                        t-field="o.invoice_payment_term_id.note" />
+                                </p>
+
+                            </div>
+                            <div class="row padding" t-if="not is_html_empty(o.narration)"
+                                name="comment">
+                                <span style="font-family: 'CustomFont';" t-field="o.narration" />
+                            </div>
+                            <div class="row padding">
+                                <p t-if="not is_html_empty(o.fiscal_position_id.note)" name="note">
+                                    <span style="font-family: 'CustomFont';"
+                                        t-field="o.fiscal_position_id.note" />
+                                </p>
+
+                            </div>
+                            <div class="row padding">
+                                <p t-if="o.invoice_incoterm_id" name="incoterm">
+                                    <strong style="font-family: 'CustomFont';">Incoterm:</strong>
+                                    <span
+                                        style="font-family: 'CustomFont';"
+                                        t-field="o.invoice_incoterm_id.code" /> - <span
+                                        style="font-family: 'CustomFont';"
+                                        t-field="o.invoice_incoterm_id.name" />
+                                </p>
+
+                            </div>
+                            <div id="qrcode" class="row padding"
+                                t-if="o.display_qr_code and o.amount_residual > 0">
+                                <p t-if="qr_code_urls.get(o.id)">
+                                    <strong style="font-family: 'CustomFont';" class="text-center">Scan
+                                        me with your banking app.</strong>
+                                    <br />
+                                    <br />
+                                    <img class="border border-dark rounded"
+                                        t-att-src="qr_code_urls[o.id]" />
+                                </p>
+                            </div>
+                            <div class="row text-left padding">
+                                <table>
+                                    <tr>
+
+                                        <t t-set="payments_vals"
+                                            t-value="o.sudo()._get_reconciled_payments()" />
+                                        <t t-foreach="payments_vals" t-as="payment_vals">
+                                            <tr>
+                                                <td>
+                                                    <i
+                                                        class="oe_form_field text-right oe_payment_label">
+                                                        <h4> Paid on </h4>
+                                                        <h4>
+                                                            <t t-esc="payment_vals['date']"
+                                                                t-options='{"widget": "date"}' />
+                                                        </h4>
+                                                    </i>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span style="font-family: 'CustomFont';"
+                                                        t-esc="payment_vals['amount']"
+                                                        t-options='{"widget": "monetary", "display_currency": o.currency_id}' />
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="len(payments_vals) > 0">
+                                            <tr class="border-black">
+                                                <td>
+                                                    <h4>
+                                                        <strong style="font-family: 'CustomFont';">Amount
+                                                            Due:</strong>
+                                                    </h4>
+                                                </td>
+                                                <td class="text-right">
+                                                    <h4>
+                                                        <span t-field="o.amount_residual" />
+                                                    </h4>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
+                        <div class="col-3">
+                            <img t-if="o.bill_qr_code_str"
+                                t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR',
+                            o.bill_qr_code_str, 130, 130)"
+                                style="padding:1%;" />
+                        </div>
+                        <div class="col-4">
+                            <div class="clearfix">
+                                <table style="page-break-inside: avoid;" width="100%"
+                                    class="table text-left">
+                                    <t t-call="external_layout.document_tax_total_custom_id" />
+
+                                </table>
+                                - </div>
+                        </div>
+                    </div>
+
+                    <div class="footer">
+
+                        <span
+                            t-attf-style="position:absolute;background-color:{{table_border_color}};max-height:-20px;width:100%;bottom:-140px;">
+                            .
+                        </span>
+                    </div>
+                    <div style="page-break-after: always;" />
+
+
+                </div>
+            </t>
+
+        </t>
+    </template>
+
+    <template id="document_tax_total_custom_id">
+
+        <tr>
+            <td>
+                <h5>
+                    <strong style="font-family: 'CustomFont';">Sub-Total :</strong>
+                </h5>
+                <h5>
+                    <strong style="font-family: 'CustomFont';"> الاجمالي الخاضع للضريبة</strong>
+                </h5>
+            </td>
+
+
+            <td>
+                <strong style="font-family: 'AdobeDevanagari';">
+                    <t t-esc="o.amount_untaxed" />
+                </strong>
+            </td>
+        </tr>
+        <tr>
+            <td style="font-family: 'CustomFont';">
+                <h5>Tax Vat : </h5>
+                <h5>ضريبة القيمة المضافة</h5>
+            </td>
+            <td style="font-family: 'AdobeDevanagari';">
+                <t t-esc="o.amount_tax" />
+            </td>
+        </tr>
+        <tr style="border-top: 2px solid black;">
+            <td>
+                <h5>
+                    <strong style="font-family: 'CustomFont';">Grand Total :</strong>
+                </h5>
+                <h5>
+                    <strong style="font-family: 'CustomFont';">الاجمالي شامل الضريبة </strong>
+                </h5>
+            </td>
+            <td>
+                <strong style="font-family: 'AdobeDevanagari';">
+                    <t t-esc="o.amount_total" />
+                </strong>
+            </td>
+        </tr>
+
+    </template>
+
+</odoo>

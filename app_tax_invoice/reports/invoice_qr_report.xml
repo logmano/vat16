@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="invoice_document_report_qr">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.company_id.partner_id.lang"/>
+                <t t-call="web.external_layout">
+                    <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                    <t t-set="company" t-value="res_company"/>
+                    <div class="page" dir="rtl" style="font-size:14px;">
+                        <div class="oe_structure"/>
+                        <style>
+                            @font-face {
+                            font-family: 'Cairo-Regular';
+                            src: url('/app_tax_invoice/static/src/fonts/Cairo-Regular.ttf');
+                            }
+                            th {
+                            color:#7b5da5;
+                            background:#f2f2f2;
+                            font-family: Cairo-Regular !important;
+                            }
+                            td {
+                            font-family: Cairo-Regular !important;
+                            }
+                            * {
+                            font-family: Cairo-Regular !important;
+                            font-size: 14px;
+                            }
+
+                        </style>
+                        <br/>
+                        <br/>
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="text-center"
+                                     style="padding:3px; max-width:200px;margin:auto;text-align:right;">
+                                    <h3>فاتورة ضريبية INVOICE TAX</h3>
+                                    <h3 style="padding:3px; max-width400:px">
+                                        <span t-field="o.name"/>
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <!--<div class="text-center" style="background-color:#FFF;border: 3px solid #eeeded;padding:3px; max-width:200px;margin:auto;text-align:center;">
+                                    <t t-esc="o.generate_qr_code()"/>
+                                    <img t-att-src="image_data_uri(o.qr_code)" style="height: 150px;" alt="QR Code"/>
+                                </div>-->
+                            </div>
+                           <!--  <div class="col-4">
+                                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo" style="max_height: 150px;max_width:150;height: 150px;width:150;text-align:left;" />
+                                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)"
+                                     style="max-height: 80px;" alt="Logo"/>
+                            </div> -->
+
+                        </div>
+                        <br/>
+                        <br/>
+
+                        <div class="row">
+                            <div class="col-5 text-center">
+                                <table class="table-sm" style="width: 100%;background-color: none;">
+                                    <thead>
+                                        <tr>
+                                            <td style="border-left: solid 1px;">Name الاسم</td>
+                                            <td>
+                                                <span t-field="o.partner_id"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border-left: solid 1px;">Address العنوان</td>
+                                            <td>
+                                                <span t-field="o.partner_id"
+                                                      t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+                                            </td>
+                                        </tr>
+
+                                        <tr t-if="o.partner_id and o.partner_id.vat">
+                                            <td style="border-left: solid 1px;">VAT. المعرف الضريبي</td>
+                                            <td>
+                                                <span t-field="o.partner_id.vat"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border-left: solid 1px;">Date التاريخ</td>
+                                            <td>
+                                                <span t-field="o.invoice_date"/>
+                                            </td>
+                                        </tr>
+                                        <!-- <tr>
+                                            <td style="border-left: solid 1px;">Seller البائع</td>
+                                            <td>
+                                                <span t-field="o.user_id"/>
+                                            </td>
+                                        </tr> -->
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="col-2 text-center">
+                                <div class="text-center"
+                                     style="background-color:#FFF;border: 3px solid #eeeded;padding:3px; max-width:200px;margin:auto;text-align:center;">
+                                    <t t-esc="o.generate_qr_code()"/>
+                                    <img t-att-src="image_data_uri(o.qr_code)" style="height: 150px;" alt="QR Code"/>
+                                </div>
+                            </div>
+                            <div class="col-5 text-center">
+                                <table class="table-sm" style="width: 100%;background-color: none;">
+                                    <thead>
+                                        <tr>
+                                            <td style="border-left: solid 1px;">Company Name</td>
+                                            <td>
+                                                <span t-field="o.company_id"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border-left: solid 1px;">Company Address</td>
+                                            <td>
+                                                <span t-field="o.company_id.partner_id"
+                                                      t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="border-left: solid 1px;">Company Vat</td>
+                                            <td>
+                                                <span t-field="company.vat"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border-left: solid 1px;">Phone</td>
+                                            <td>
+                                                <span t-field="company.partner_id.phone"/>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row text-center">
+                            <div class="col-3 text-center"></div>
+
+                            <div class="col-6 text-center">
+                                <strong>
+                                    <span t-field="o.ref"/>
+                                </strong>
+                            </div>
+
+                            <div class="col-3 text-center"></div>
+                        </div>
+
+                        <!-- Is there a discount on at least one line? -->
+                        <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>
+
+                        <table class="table table-sm">
+                            <thead>
+                                <tr class="border-black">
+                                    <t t-set="colspan" t-value="5"/>
+                                    <td class="text-right">
+                                        الصنف
+                                        <br/>
+                                        Items
+                                    </td>
+                                    <td class="text-center">
+                                        السعر
+                                        <br/>
+                                        U. Price
+                                    </td>
+                                    <td class="text-center">
+                                        الكمية
+                                        <br/>
+                                        Qty
+                                    </td>
+                                    <td class="text-center">
+                                        <span>
+                                            الخصم
+                                            <br/>
+                                            Disc.(%)
+                                        </span>
+                                        <t t-set="colspan" t-value="colspan+1"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span>
+                                            الضريبة
+                                            <br/>
+                                            Taxes
+                                        </span>
+
+                                    </td>
+                                    <td class="text-center">
+                                        الاجمالي
+                                        <br/>
+                                        <t groups="account.group_show_line_subtotals_tax_excluded">Amount</t>
+                                        <t groups="account.group_show_line_subtotals_tax_included">Total Price</t>
+                                    </td>
+                                </tr>
+                            </thead>
+                          
+
+                             <tbody class="invoice_line_ids_tbody text-center">
+                    <!-- foreach-->
+                    <tr t-foreach="o.invoice_line_ids" t-as="line">
+                        <td class="text-left"><span t-field="line.name"/></td>
+                        <td><span t-field="line.price_unit"/></td>
+                        <td><span t-field="line.quantity"/></td>
+                        <td>diso<!-- <span t-field="line.discount"/> --></td>
+                        <!--                            <td><span t-field="line.tax_ids[0].name"/></td>-->
+                        <td t-attf-class="{{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                            <span t-esc="', '.join(map(lambda x: (x.description or x.name), line.tax_ids))"
+                                  id="line_tax_ids"/>
+                        </td>
+                        <!-- <td><span t-field="line.einv_amount_tax"/></td> -->
+                        <!-- <td><span t-field="line.price_subtotal"/></td> -->
+                        <td><span t-field="line.price_total"/></td>
+
+                    </tr>
+                </tbody>
+                        </table>
+                      <div style="page-break-inside: avoid;">
+                <div class="row p-1 mt-1 bg-light">
+                    <div class="col-6"><Strong>Total Amount: </Strong></div>
+                    <div class="col-6 text-right"><Strong>:الاجمالي</Strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-10">
+                        <!-- <div class="row border border-top-0">
+                            <div class="col-4">Total (Excluding VAT)</div>
+                            <div class="col-6 text-right">الاجمالي غير شامل ضريبة القيمة المضافة</div>
+                            <div class="col-2 text-center"><span t-field="doc.einv_amount_sale_total"></span></div>
+                        </div> -->
+                        <!-- <div class="row border border-top-0">
+                            <div class="col-4">Discount</div>
+                            <div class="col-6 text-right">إجمالي الخصومات</div>
+                            <div class="col-2 text-center"><span
+                                    t-field="doc.einv_amount_discount_total"></span></div>
+                        </div> -->
+                        <div class="row border border-top-0">
+                            <div class="col-4">Total Taxable Amount-Excluding VAT</div>
+                            <div class="col-6 text-right">الإجمالي الخاضع للضريبة غير شامل ضريبة القيمة
+                                المضافة</div>
+                            <div class="col-2 text-center"><span t-field="o.amount_untaxed"></span></div>
+                        </div>
+                        <div class="row border border-top-0">
+                            <div class="col-4">Total VAT</div>
+                            <div class="col-6 text-right">إجمالي الضريبة المضافة</div>
+                            <div class="col-2 text-center"><span t-field="o.amount_tax_signed"></span></div>
+                        </div>
+                        <div class="row border border-top-0">
+                            <div class="col-4">Total Amount Due</div>
+                            <div class="col-6 text-right"> الإجمالي المستحق </div>
+                            <div class="col-2 text-center"><span t-field="o.amount_total"></span></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="oe_structure"/>
+
+                        <div class="oe_structure"/>
+                        <br/>
+                       
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="paperformat_invoices" model="report.paperformat">
+        <field name="name">Invoices QR</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">18</field>
+        <field name="margin_bottom">28</field>
+        <field name="margin_left">3</field>
+        <field name="margin_right">3</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">15</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_invoice_qr_app" model="ir.actions.report">
+        <field name="name">Electronic Invoice Tax</field>
+        <field name="model">account.move</field>
+        <field name="binding_type">report</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">app_tax_invoice.invoice_document_report_qr</field>
+        <field name="report_file">app_tax_invoice.invoice_document_report_qr</field>
+        <field name="paperformat_id" ref="app_tax_invoice.paperformat_invoices"/>
+    </record>
+
+</odoo>
